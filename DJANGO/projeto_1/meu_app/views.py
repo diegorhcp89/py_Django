@@ -15,3 +15,9 @@ def contact(request):
 class SimpleClassView(View):
     def get(self, request):
         return HttpResponse("Está é uma view de classe CBV")
+
+def user_profile(request, id):
+    # chamada do banco de dados pegando o usuário por id
+    # organizaria os campos para enviar o template
+    # renderizaria um template com os dados do usuario
+    return HttpResponse(f"Perfil do usuário com ID: {id}")
