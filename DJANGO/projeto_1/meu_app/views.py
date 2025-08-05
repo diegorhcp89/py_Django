@@ -21,3 +21,6 @@ def user_profile(request, id):
     # organizaria os campos para enviar o template
     # renderizaria um template com os dados do usuario
     return HttpResponse(f"Perfil do usuário com ID: {id}")
+
+def home_template(request):
+    return render(request, 'home.html')
