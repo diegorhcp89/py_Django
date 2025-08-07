@@ -20,6 +20,7 @@ class Produto(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     estoque = models.IntegerField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    descricao = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.nome
