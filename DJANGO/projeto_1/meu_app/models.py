@@ -24,3 +24,12 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Fornecedor(models.Model):
+    nome = models.CharField(max_length=100)
+    contato = models.CharField(max_length=50, blank=True, null=True)
+    email = models.CharField(unique=True)
+    telefone = models.CharField(max_length=20, blank=True, null=True)
+
+    def __str__(self):
+        return self.nome
