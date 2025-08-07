@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
+from .models import Produto
 
 # Create your views here.
 def home(request):
@@ -24,3 +25,8 @@ def user_profile(request, id):
 
 def home_template(request):
     return render(request, 'home.html')
+
+def listar_produtos(request):
+    produtos = Produto.objects.all()
+
+    return render(request, 'produtos.html', {'produtos': produtos})
