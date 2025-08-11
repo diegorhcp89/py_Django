@@ -40,3 +40,12 @@ def exibir_dados(request):
     }
 
     return render(request, "exemplo_filtros.html", contexto)
+
+def listar_produto(request):
+    produtos = [
+        {"nome": "Celular", "preco": 1500},
+        {"nome": "Notebook", "preco": 2500},
+        {"nome": "Fone de ouvido", "preco": 500}
+    ]
+
+    return render(request, "lista_produtos.html", {"produtos": produtos})
