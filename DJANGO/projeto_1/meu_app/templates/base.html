@@ -11,6 +11,24 @@
             <nav>
                 <a href="/">Home</a>
                 <a href="/contact">Contato</a>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li>Olá, {{ user.username }}</li>
+                        <li>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Sair</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'registro' %}">Registrar</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </nav>
         </header>
         <main>

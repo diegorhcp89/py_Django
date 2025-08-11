@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
-from .models import Produto
-from .forms import ContatoForm
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from .models import Produto
+from .forms import ContatoForm
+from django.contrib.auth import login
+from .forms import RegistroUsuarioForm
 
 # Create your views here.
 def home(request):
@@ -74,3 +76,29 @@ def contatoform(request):
     else:
         form = ContatoForm()
     return render(request, "contato.html", {"form": form})
+
+def registro(request):
+    if request.method == "POST":
+        form = RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("home")
+
+    else:
+        form = RegistroUsuarioForm()
+
+    return render(request, "registro.html", {"form": form})
+
+def login_usuario(request):
+    if request.method == "POST":
+        form = RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("home")
+
+    else:
+        form = RegistroUsuarioForm()
+
+    return render(request, "registro.html", {"form": form})
