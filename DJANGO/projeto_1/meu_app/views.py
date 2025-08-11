@@ -30,3 +30,13 @@ def listar_produtos(request):
     produtos = Produto.objects.all()
 
     return render(request, 'produtos.html', {'produtos': produtos})
+
+def exibir_dados(request):
+    contexto = {
+        "nome": "Django",
+        "numero": 42,
+        "lista": ["Python", "Django", "Flask"],
+        "descricao": ""
+    }
+
+    return render(request, "exemplo_filtros.html", contexto)
