@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 from .models import Produto
+from .forms import ContatoForm
 
 # Create your views here.
 def home(request):
@@ -49,3 +50,7 @@ def listar_produto(request):
     ]
 
     return render(request, "lista_produtos.html", {"produtos": produtos})
+
+def contatoform(request):
+    form = ContatoForm()
+    return render(request, "contato.html", {"form": form})
