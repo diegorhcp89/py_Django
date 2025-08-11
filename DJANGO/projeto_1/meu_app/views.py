@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.views import View
 from .models import Produto
 from .forms import ContatoForm
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -52,5 +54,23 @@ def listar_produto(request):
     return render(request, "lista_produtos.html", {"produtos": produtos})
 
 def contatoform(request):
-    form = ContatoForm()
+
+    if request.method == "POST":
+        form = ContatoForm(request.POST)
+
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            email = form.cleaned_data['email']
+            msg = form.cleaned_data['mensagem']
+
+            print(f"Enviado e-mail de {nome} {email}, com a mensagem: {msg}")
+
+            messages.success(request, "Mendagem enviada com sucesso!")
+
+            return HttpResponseRedirect("/contatoform/")
+        else:
+            messages.error(request, "Erro no formulario. Verifique os campos!")
+
+    else:
+        form = ContatoForm()
     return render(request, "contato.html", {"form": form})
