@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from .models import Produto
 from .forms import ContatoForm
-from django.contrib.auth import login
 from .forms import RegistroUsuarioForm
 
 # Create your views here.
@@ -83,7 +84,7 @@ def registro(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("home")
+            return redirect("home_template")
 
     else:
         form = RegistroUsuarioForm()
@@ -92,13 +93,13 @@ def registro(request):
 
 def login_usuario(request):
     if request.method == "POST":
-        form = RegistroUsuarioForm(request.POST)
+        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.get_user()
             login(request, user)
-            return redirect("home")
+            return redirect("home_template")
 
     else:
-        form = RegistroUsuarioForm()
+        form = AuthenticationForm()
 
-    return render(request, "registro.html", {"form": form})
+    return render(request, "login.html", {"form": form})
